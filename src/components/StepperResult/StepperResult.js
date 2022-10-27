@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -7,29 +7,11 @@ import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import useEvaluateWord from '../../hooks/useEvaluateWord';
 
-const steps = [
-    {
-      label: 'orecchia',
-      description: '( -([aeiouæȣ])[c]ch([aeiouæȣ])- => -/1g/2- ) = oregia',
-    },
-    {
-      label: 'oregia',
-      description: '( -([^g])gi- => -/1j- ) = oreja',
-    },
-    {
-      label: 'oreja',
-      description: '( -[aei]- => -æ- ) = oræjæ',
-    },
-    {
-      label: 'oræjæ',
-      description: '( -[ou]- => -ȣ- ) = ȣræjæ',
-    },
-  ];
-
-export default function StepperResult() {
-  const [activeStep, setActiveStep] = React.useState(0);
-
+export default function StepperResult({searchWord}) {
+  const [activeStep, setActiveStep] = useState(0);
+  
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -41,12 +23,14 @@ export default function StepperResult() {
   const handleReset = () => {
     setActiveStep(0);
   };
-
+  
+  let resAPI = useEvaluateWord(searchWord);
+  console.log("resAPI", resAPI)
   return (
     <Box sx={{ maxWidth: 400 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((step, index) => (
-          <Step key={step.label}>
+      {resAPI&&resAPI.steps.map((step, index) => (
+          <Step key={resAPI&&resAPI.label}>
             <StepLabel
               optional={
                 index === 2 ? (
@@ -57,7 +41,7 @@ export default function StepperResult() {
               {step.label}
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              <Typography>{resAPI&&step.description}</Typography>
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
@@ -65,7 +49,7 @@ export default function StepperResult() {
                     onClick={handleNext}
                     sx={{ mt: 1, mr: 1 }}
                   >
-                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                    {resAPI && activeStep == resAPI.steps.length -1 ? 'Finish' : 'Continue'}
                   </Button>
                   <Button
                     disabled={index === 0}
@@ -80,9 +64,9 @@ export default function StepperResult() {
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length && (
+      {resAPI && resAPI.steps.length == activeStep && (
         <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>Result: ȣræjæ</Typography>
+          <Typography>Result: {resAPI.result}</Typography>
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
             Reset
           </Button>

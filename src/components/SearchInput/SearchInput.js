@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
@@ -45,18 +45,34 @@ color: 'inherit',
 },
 }));
 
-export default function SearchInput() {
+export default function SearchInput({handleSetResponse}) {
+  let [searchWord, setSearchWord] = useState(null);
+  
+  const handleChange = (value) => {
+    setSearchWord(value)
+  }
+  
+  const setRes = ()=> {
+    handleSetResponse(searchWord);
+  }
+
+  useMemo(()=>{
+    setRes(searchWord);
+  // eslint-disable-next-line
+  },[searchWord])
+
   return (
     <div>
-        <Search>
-            <SearchIconWrapper>
-                <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </Search>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+          onChange={e=>handleChange(e.target.value)}
+        />
+      </Search>
     </div>
   )
 }

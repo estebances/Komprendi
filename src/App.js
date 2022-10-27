@@ -1,4 +1,5 @@
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 import SearchInput from "./components/SearchInput";
 import StepperResult from "./components/StepperResult";
 
@@ -28,12 +29,17 @@ const Stepper = styled('div')(({ theme }) => ({
 }));
 
 function App() {
+  const [response, setResponse] = useState(null);
+  const handleSetResponse = (response) => {
+    setResponse(response);
+  };
+
   return (
     <View>      
       <Grid>
         <Title>KOMPRENI</Title> 
-        <Search><SearchInput/></Search>
-        <Stepper><StepperResult/></Stepper>
+        <Search><SearchInput handleSetResponse={handleSetResponse} /></Search>
+        <Stepper><StepperResult searchWord={response} /></Stepper>
       </Grid>
     </View>
   );
