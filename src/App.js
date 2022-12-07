@@ -23,7 +23,7 @@ const Search = styled('div')(({ theme }) => ({
 }));
 const Stepper = styled('div')(({ theme }) => ({
   display: "flex",
-  justifyContent: "flex-start"
+  justifyContent: "center"
 }));
 const Display = styled('div')(({ theme }) => ({
   maxHeight: "50vh", 

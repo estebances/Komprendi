@@ -9,19 +9,13 @@ function useAvailableLanguages(){
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("Access-Control-Allow-Origin", "*");            
-            
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
         
-            fetch("http://localhost:3001/langs")
+            fetch("http://localhost:8080/langs")
             .then(response => response.text())
             .then(result => setLanguages(JSON.parse(result)))
             .catch(error => console.log('error', error));
         }
-
+    // eslint-disable-next-line
     },[]);
 
     return languages;

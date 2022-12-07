@@ -65,7 +65,13 @@ export default function StepperResult({language, searchWord}) {
       </Stepper>
       {resAPI && resAPI.steps && resAPI.steps.length === activeStep && (
         <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>Result: {resAPI.result}</Typography>
+          <Typography>Result:
+            <div style={{overflowY: 'scroll', marginTop: '20px', display: 'grid', height: '400px', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '20px'}}>
+              {resAPI.result.map((r) => {
+                return <div >{r}</div>
+              })}
+            </div>
+          </Typography>
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
             Reset
           </Button>

@@ -22,11 +22,12 @@ function useEvaluateWord(data, language) {
                 redirect: 'follow'
             };
         
-            fetch("http://localhost:3001/eval", requestOptions)
+            fetch("http://localhost:8080/eval", requestOptions)
             .then(response => response.text())
             .then(result => setResponse(JSON.parse(result)))
             .catch(error => console.log('error', error));
         }
+    // eslint-disable-next-line
     }, [data]);
 
   return response;
