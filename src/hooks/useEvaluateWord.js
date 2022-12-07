@@ -27,8 +27,7 @@ function useEvaluateWord(data, language) {
             .then(result => setResponse(JSON.parse(result)))
             .catch(error => console.log('error', error));
         }
-    // eslint-disable-next-line
-    }, [data]);
+    }, [data, language]);
 
   return response;
 }

@@ -23,7 +23,6 @@ export default function StepperResult({language, searchWord}) {
   const handleReset = () => {
     setActiveStep(0);
   };
-  
   let resAPI = useEvaluateWord(searchWord, language);
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -66,9 +65,9 @@ export default function StepperResult({language, searchWord}) {
       {resAPI && resAPI.steps && resAPI.steps.length === activeStep && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>Result:
-            <div style={{overflowY: 'scroll', marginTop: '20px', display: 'grid', height: '400px', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '20px'}}>
-              {resAPI.result.map((r) => {
-                return <div >{r}</div>
+            <div style={{overflowY: 'scroll', marginTop: '20px', display: 'grid', height: '250px', width: '400px', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '20px'}}>
+              {resAPI.result.map((index, r) => {
+                return <div key={index}>{r}</div>
               })}
             </div>
           </Typography>

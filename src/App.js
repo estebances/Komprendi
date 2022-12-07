@@ -41,8 +41,8 @@ function App() {
   const handleSetResponse = (response) => {
     setResponse(response);
   };
-  const handleSetLanguage = () => {
-    setLanguage()
+  const handleSetLanguage = (language) => {
+    setLanguage(language)
   }
 
   return (
