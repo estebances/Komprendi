@@ -26,6 +26,8 @@ export default function StepperResult({language, searchWord}) {
 
   useMemo(() => {
     handleReset();
+    
+  // eslint-disable-next-line
   }, [searchWord])
 
   let resAPI = useEvaluateWord(searchWord, language);
