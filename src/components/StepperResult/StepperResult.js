@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -23,11 +23,16 @@ export default function StepperResult({language, searchWord}) {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  useMemo(() => {
+    handleReset();
+  }, [searchWord])
+
   let resAPI = useEvaluateWord(searchWord, language);
   return (
     <Box sx={{ maxWidth: 400 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
-      {resAPI && resAPI.steps && resAPI.steps.map((step, index) => (
+      {searchWord !== "" && resAPI && resAPI.steps && resAPI.steps.map((step, index) => (
           <Step key={resAPI && resAPI.label}>
             <StepLabel
               optional={
@@ -62,12 +67,12 @@ export default function StepperResult({language, searchWord}) {
           </Step>
         ))}
       </Stepper>
-      {resAPI && resAPI.steps && resAPI.steps.length === activeStep && (
+      {searchWord !== "" && resAPI && resAPI.steps && resAPI.steps.length === activeStep && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>Result:
             <div style={{overflowY: 'scroll', marginTop: '20px', display: 'grid', height: '250px', width: '400px', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '20px'}}>
-              {resAPI.result.map((index, r) => {
-                return <div key={index}>{r}</div>
+              {resAPI.result.map(r => {
+                return <div key={r}>{r}</div>
               })}
             </div>
           </Typography>
