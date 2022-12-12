@@ -19,19 +19,20 @@ const Grid = styled('div')(({ theme }) => ({
 const Search = styled('div')(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
-  marginTop: '5px'
+  marginTop: '8px'
 }));
 const Stepper = styled('div')(({ theme }) => ({
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "flex-start",
+  margin: "5% 0px 0px 30%"
 }));
 const Display = styled('div')(({ theme }) => ({
-  maxHeight: "50vh", 
-  display: "grid"
+  maxHeight: "25vh", 
 }));
 const SizeSelector = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-evenly',
+  marginTop: "25px",
   maxHight: '50%'
 }));
 
@@ -50,17 +51,16 @@ function App() {
       <Grid>
         <Display>
           <Header/>
-
           <SizeSelector>
-            <SelectorLangs handleSetLanguage={handleSetLanguage} />
             <Search>
               <SearchInput handleSetResponse={handleSetResponse} />
             </Search>
+            <SelectorLangs handleSetLanguage={handleSetLanguage} />
           </SizeSelector>
+          <Stepper>
+            <StepperResult language={language} searchWord={response} />
+          </Stepper>
         </Display>
-        <Stepper>
-          <StepperResult language={language} searchWord={response} />
-        </Stepper>
       </Grid>
     </View>
   );
